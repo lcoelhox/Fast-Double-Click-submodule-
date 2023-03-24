@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  backend:
+    container_name: backend
+    build: ./backend
+    tty: true
+    stdin_open: true
+    command: >
+      sh -c "npm run dev"
+    restart: always
+    ports:
+      - 3001:3001
+    working_dir: /app-backend
+    volumes:
+      - ./backend:/app-backend
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3001"]
+      timeout: 10s
+      retries: 5
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    command: >
+      sh -c "npm start"
+    restart: always
+    ports:
+      - 3000:3000
+    working_dir: /app-frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3000"]
+      timeout: 10s
+      retries: 5
