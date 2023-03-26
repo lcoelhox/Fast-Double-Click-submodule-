@@ -10,7 +10,7 @@ const FILE_NAME = 'listOfRecords.json';
 let listOfRecords = [];
 
 if (fs.existsSync(FILE_NAME)) {
-  const fileContents = fs.readFileSync(FILE_NAME, 'utf8'); // Especifica a codificação do arquivo lido
+  const fileContents = fs.readFileSync(FILE_NAME, 'utf8');
   listOfRecords = JSON.parse(fileContents);
 }
 
