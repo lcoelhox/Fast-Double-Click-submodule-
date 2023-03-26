@@ -27,9 +27,9 @@ app.post('/', (req, res) => {
   fs.writeFile(FILE_NAME, JSON.stringify(listOfRecords), (err) => {
     if (err) {
       console.error(err);
-      res.status(500).send('Erro ao salvar registro');
+      res.status(500).send('Error saving record');
     } else {
-      res.status(201).send('Registro salvo com sucesso');
+      res.status(201).send('Record successfully saved');
     }
   });
 });
@@ -38,7 +38,7 @@ app.get('/records', (_req, res) => {
   fs.readFile(FILE_NAME, 'utf8', (err, data) => {
     if (err) {
       console.error(err);
-      res.status(500).send('Erro ao ler arquivo de registros');
+      res.status(500).send('Error reading log file');
     } else {
       const registros = JSON.parse(data);
       res.status(200).send(registros);
@@ -52,7 +52,7 @@ app.delete('/records', (_req, res) => {
 
     fs.writeFile(FILE_NAME, JSON.stringify(newRegistros), err => {
       if (err) throw err;
-      res.send('Registros excluídos com sucesso!');
+      res.status(202).send('Record successfully saved');
     });
   });
 });
